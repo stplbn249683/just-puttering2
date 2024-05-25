@@ -1,6 +1,7 @@
 ﻿' This program uses the Schwab market data API, the polygon.io trading API or yahoo files to update a SQL Server database
 ' of historical OHLC stock price data.
-' Last updated on 21May24.
+' Modified on 25May24 to correct a missing carriage return in the refresh token response file. Oops!
+' Last updated on 25May24.
 
 Option Strict Off
 Option Explicit On
@@ -282,7 +283,7 @@ Module Module1
 
     If File.Exists(file_access_token_response) Then File.Delete(file_access_token_response)
     Dim writer As New StreamWriter(file_access_token_response)
-    writer.Write(result)
+    writer.WriteLine(result)
     writer.Close()
 
     response.EnsureSuccessStatusCode() ' Now check it so that we are aware that an error occurred
@@ -350,8 +351,8 @@ Module Module1
     Dim current_date As Date
     current_date = Now
     Dim writer As New StreamWriter(file_refresh_token_response)
-    writer.Write(current_date.ToLongDateString & " " & current_date.ToLongTimeString)
-    writer.Write(result)
+    writer.WriteLine(current_date.ToLongDateString & " " & current_date.ToLongTimeString)
+    writer.WriteLine(result)
     writer.Close()
 
     response.EnsureSuccessStatusCode() ' Now check it so we don't wipe out the access token file unnecessarily
@@ -364,7 +365,7 @@ Module Module1
     Dim refresh_date, access_date As Date
     refresh_date = current_date.AddDays(7)
     access_date = current_date.AddMinutes(30)
-    MessageBox.Show("refresh token expires: " & refresh_date.ToLongDateString & " " & refresh_date.ToLongTimeString &
+    MessageBox.Show("refresh token expires: " & refresh_date.ToLongDateString & " " & refresh_date.ToLongTimeString & vbCrLf &
       "access token expires: " & access_date.ToLongDateString & " " & access_date.ToLongTimeString & vbCrLf & "Finished")
   End Sub
 

@@ -1,3 +1,9 @@
+25May24 I added a missing carriage return in the refresh token response file.
+I had made a small change to the program to add the current time to the
+refresh token response file but did not check whether it had worked until
+the refresh token expired.
+
+
 This folder contains an example of using the Schwab Market Data API (see 
 developer.schwab.com) to maintain and update a database of historical
 OHLC stock prices.
